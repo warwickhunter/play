@@ -8,6 +8,8 @@ import java.security.Key;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.Security;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 
@@ -16,8 +18,10 @@ import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
 import javax.crypto.CipherOutputStream;
 import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
-import javax.crypto.NullCipher;
+
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 /**
  * Java Cryptography experiment. Encrypt a file.
@@ -49,14 +53,20 @@ public class Encrypt
     {
         try
         {
-            KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
-            FileInputStream keyStoreIn = new FileInputStream(KEYSTORE);
-            keyStore.load(keyStoreIn, KEYSTORE_PASSWORD.toCharArray());
-            keyStoreIn.close();
+        	Security.addProvider(new BouncyCastleProvider());
+        	KeyGenerator keyGen = KeyGenerator.getInstance("DES", "BC");
+        	keyGen.init(new SecureRandom());
+        	Key key = keyGen.generateKey();
+        	
+//            KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+//            FileInputStream keyStoreIn = new FileInputStream(KEYSTORE);
+//            keyStore.load(keyStoreIn, KEYSTORE_PASSWORD.toCharArray());
+//            keyStoreIn.close();
             
-            Key    key    = keyStore.getKey(KEY_ALIAS, KEY_PASSWORD.toCharArray());
-            Cipher cipher = Cipher.getInstance("RSA"); // RSA
-            
+//            Key    key    = keyStore.getKey(KEY_ALIAS, KEY_PASSWORD.toCharArray());
+//            Cipher cipher = Cipher.getInstance("AES/ECB/NoPadding"); // RSA");
+            Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding", "BC");
+
             for (int i = 0; i < args.length; ++i)
             {
                 encrypt(cipher, key, args[i], args[i] + ".crypt");
@@ -77,7 +87,7 @@ public class Encrypt
         FileOutputStream fileOut = new FileOutputStream(destinationFile);
         CipherOutputStream cipherOut = new CipherOutputStream(fileOut, cipher); 
 
-        byte[] buffer = new byte[8];
+        byte[] buffer = new byte[16];
         int totalLen = 0;
         for (int len = fileIn.read(buffer); len != -1; len = fileIn.read(buffer)) 
         {
