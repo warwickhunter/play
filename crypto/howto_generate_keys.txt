@@ -1,0 +1,1 @@
+keytool -genkeypair -alias crypto -keypass crypto -keystore crypto.ks -storepass crypto -sigalg MD5WithRSA -keyalg RSA
