@@ -21,6 +21,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -137,7 +138,8 @@ public class SkeletonActivity extends Activity {
             alert.create().show();
             return true;
         case SHARE_ID:
-            Intent pickContact = new Intent(Intent.ACTION_PICK, Uri.parse("content://contacts/people/"));
+            // Use the Android contact picker to choose a contact  uri=content://contacts/people/
+            Intent pickContact = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
             startActivityForResult(pickContact, PICK_CONTACT);
             return true;
         }
@@ -166,6 +168,7 @@ public class SkeletonActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PICK_CONTACT && resultCode == RESULT_OK && data != null) {
+            // The Android contact picker has done its job
             Log.d(TAG, data.toString());
             Toast.makeText(this, R.string.share_msg, Toast.LENGTH_LONG).show();
         }
