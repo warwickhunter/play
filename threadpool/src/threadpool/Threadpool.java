@@ -11,8 +11,7 @@ import java.util.concurrent.TimeUnit;
  * An experiment with thread pools.
  * 
  * @author Warwick Hunter (w.hunter@computer.org)
- * @date   Sep 12, 2010
- *
+ * @date   2010-09-12
  */
 public class Threadpool 
 {
