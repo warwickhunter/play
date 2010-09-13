@@ -5,6 +5,7 @@ package threadpool;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * An experiment with thread pools.
@@ -15,7 +16,7 @@ import java.util.concurrent.Executors;
  */
 public class Threadpool 
 {
-    private static final int NUM_THREADS = 8;
+    private static final int NUM_THREADS = 4;
 
     private final ExecutorService m_pool;
     
@@ -31,9 +32,23 @@ public class Threadpool
     
     public void start()
     {
-        for (int i = 0; i < 100; ++i)
+        try
         {
-            m_pool.execute(new Job(Integer.toString(i)));
+            for (int i = 0; i < 50; ++i)
+            {
+                m_pool.execute(new Job(Integer.toString(i)));
+            }
+
+            System.out.println("shutdown");
+            m_pool.shutdown();
+            
+            System.out.println("waiting for all jobs to complete");
+            m_pool.awaitTermination(30, TimeUnit.SECONDS);
+            System.out.println("waiting complete");
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
         }
     }
 
@@ -49,17 +64,16 @@ public class Threadpool
         @Override
         public void run()
         {
-            System.out.println(m_id + " start");
+            System.out.printf("%s start on %s %n", m_id, Thread.currentThread().getName());
             try
             {
-                Thread.sleep(2000);
+                Thread.sleep(500);
             }
             catch (InterruptedException e)
             {
                 e.printStackTrace();
             }
-            System.out.println(m_id + " end");
+            System.out.printf("%s end on %s %n", m_id, Thread.currentThread().getName());
         }
-        
     }
 }
