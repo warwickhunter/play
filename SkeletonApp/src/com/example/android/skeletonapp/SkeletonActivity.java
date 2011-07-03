@@ -19,6 +19,7 @@ package com.example.android.skeletonapp;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -95,7 +96,7 @@ public class SkeletonActivity extends Activity {
         // We are going to create menus. Note that we assign them
         // unique integer IDs, labels from our string resources, and
         // given them shortcuts.
-        menu.add(0, CLEAR_ID,  0, R.string.clear).setShortcut('1', 'c');
+        menu.add(0, CLEAR_ID,  0, R.string.clear).setShortcut('1', 'c').setIcon(android.R.drawable.ic_menu_close_clear_cancel);
         menu.add(0, SAVE_ID,   0, R.string.save).setShortcut('2', 's').setIcon(android.R.drawable.ic_menu_save);
         menu.add(0, DELETE_ID, 0, R.string.delete).setShortcut('3', 'd').setIcon(android.R.drawable.ic_menu_delete);
         menu.add(0, SHARE_ID,  0, R.string.share).setShortcut('4', 'x').setIcon(android.R.drawable.ic_menu_share);
@@ -165,13 +166,35 @@ public class SkeletonActivity extends Activity {
         }
     };
 
+    /**
+     * A call-back for when an another activity invoked by this activity has finished it's work. 
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PICK_CONTACT && resultCode == RESULT_OK && data != null) {
             // The Android contact picker has done its job
             Log.d(TAG, data.toString());
-            Toast.makeText(this, R.string.share_msg, Toast.LENGTH_LONG).show();
+            String msg = getString(R.string.share_msg, getContactName(data.getData()));
+            Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    /** 
+     * From a Contact URI get the contact's name 
+     */
+    private String getContactName(Uri contactUri) {
+        Cursor cursor = null;
+        try {
+            cursor = getContentResolver().query(contactUri, new String[]{ContactsContract.Contacts.DISPLAY_NAME}, null, null, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                return cursor.getString(0);
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return null;
     }
 }

@@ -27,7 +27,7 @@
     <string name="share">Share</string>
     <string name="save_msg">Your settings have been saved.</string>
     <string name="delete_msg">Your account will be deleted! Continue?</string>
-    <string name="share_msg">Your message has been sent.</string>
+    <string name="share_msg">Your message has been sent to %s.</string>
     <string name="main_label">Hello <b>Gold Coast Java Users\' Group</b></string>
 </resources>
 
