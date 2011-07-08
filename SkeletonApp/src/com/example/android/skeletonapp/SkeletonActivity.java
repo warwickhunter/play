@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Menu;
@@ -174,12 +175,36 @@ public class SkeletonActivity extends Activity {
         if (requestCode == PICK_CONTACT && resultCode == RESULT_OK && data != null) {
             // The Android contact picker has done its job
             Log.d(TAG, data.toString());
-            String msg = getString(R.string.share_msg, getContactName(data.getData()));
-            Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+            shareThing(data.getData());
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    private Handler m_handler = new Handler();
+    
+    /**
+     * Use a thread and a handler to run the database query in the background
+     * and post the results to the main UI thread.
+     * 
+     * @param contactUri the URI of the contact to share the thing with
+     */
+    private void shareThing(final Uri contactUri) {
+    	// A runnable/thread to perform the database access off the UI thread 
+    	Runnable sender = new Runnable() {
+            @Override public void run() {
+                final String name = getContactName(contactUri);
+                // Use a handler to show a Toast on the UI thread
+                m_handler.post(new Runnable() {
+                    @Override public void run() {
+                        String msg = getString(R.string.share_msg, name);
+                        Toast.makeText(SkeletonActivity.this, msg, Toast.LENGTH_LONG).show();
+                    }                    
+                });
+            }
+        };
+        new Thread(sender).start();
+    }
+    
     /** 
      * From a Contact URI get the contact's name 
      */
