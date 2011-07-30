@@ -1,6 +1,3 @@
-import sun.org.mozilla.javascript.internal.ast.CatchClause;
-
-import javax.sound.sampled.Line;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -9,7 +6,7 @@ import java.io.Reader;
 /**
  * Experiments with Java 7 features.
  *
- * @author whunter
+ * @author Warwick Hunter
  * @since  2011-07-30
  */
 public class Java7 {
