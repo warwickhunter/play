@@ -38,11 +38,10 @@ public class Java7ForkJoin {
     /** Use fork join to split a task into smaller tasks */
     public static void forkJoin() {
         ForkJoinPool pool = new ForkJoinPool();
-        Stringifier s = new Stringifier(13);
+        Stringifier s = new Stringifier(Integer.MAX_VALUE);
         pool.submit(s);
         while (!s.isDone()) {
             try {
-                System.out.println("zzz....");
                 Thread.sleep(100);
                 
             } catch (InterruptedException ex) {
