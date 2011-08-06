@@ -1,14 +1,33 @@
 Sync to/from the remote master
 --------------------------------
-git pull origin master
-git push origin master
+# git pull origin master
+# git push origin master
 
 Restore a deleted file
 -----------------------
 Find the last commit that affected the given path. As the file isn't in the HEAD commit, this commit must have deleted it.
 
-git rev-list -n 1 HEAD -- <file_path>
+# git rev-list -n 1 HEAD -- <file_path>
 
 Then checkout the version at the commit before.
 
-git checkout <deleting_commit>^ -- <file_path>
+# git checkout <deleting_commit>^ -- <file_path>
+
+Branching and merging
+---------------------
+Nice article by Veera Sundar (http://java.dzone.com/articles/git-tutorial-%E2%80%93-branching-and)
+
+List branches
+# git branch
+
+Create a new branch and switch to it
+# git branch new_feature
+# git checkout new_feature
+
+Make your mods in the new_feature branch; commit as many times as you wish
+
+Merge changes back into the master 
+# git checkout master
+# git merge new_feature
+
+
