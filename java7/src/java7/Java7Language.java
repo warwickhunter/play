@@ -1,6 +1,8 @@
 /**
  * Copyright Warwick Hunter 2011. All rights reserved.
  */
+package java7;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

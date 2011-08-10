@@ -1,6 +1,8 @@
 /**
  * Copyright Warwick Hunter 2011. All rights reserved.
  */
+package java7;
+
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
