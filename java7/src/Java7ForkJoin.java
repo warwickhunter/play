@@ -15,6 +15,8 @@ public class Java7ForkJoin {
 
     private static class Stringifier extends RecursiveTask<String> {
 
+        private static final long serialVersionUID = 1L;
+
         private final int m_number;
         
         private Stringifier(int number) {

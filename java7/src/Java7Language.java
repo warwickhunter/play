@@ -1,10 +1,11 @@
 /**
  * Copyright Warwick Hunter 2011. All rights reserved.
  */
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Experiments with Java 7 features.
