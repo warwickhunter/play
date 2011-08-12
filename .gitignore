@@ -14,6 +14,5 @@ build
 threadpool/bin
 grails
 warwickhunter.github.com
-/java7/dist/
-/java7/.idea/
-/java7/nbproject/private/
+gwt
+jsf
