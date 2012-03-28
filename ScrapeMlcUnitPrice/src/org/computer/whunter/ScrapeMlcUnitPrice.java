@@ -20,7 +20,7 @@ public class ScrapeMlcUnitPrice {
     public static void main(String[] args) {
         try {
             String url = "https://www.mlc.com.au/masterkeyWeb/execute/FramesetUnitPrices";
-    
+     
             HttpUnitOptions.setScriptingEnabled(false);
             WebConversation client = new WebConversation();
             client.getResponse(url);
