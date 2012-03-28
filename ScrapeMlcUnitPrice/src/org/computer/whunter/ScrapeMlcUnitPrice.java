@@ -12,18 +12,20 @@ import com.meterware.httpunit.WebResponse;
 
 /**
  * Scrape unit prices from the MLC web site
+ * 
  * @author Warwick Hunter
  * @since  2012-03-28
  */
 public class ScrapeMlcUnitPrice {
 
+    private static final String URL = "https://www.mlc.com.au/masterkeyWeb/execute/FramesetUnitPrices";
+
     public static void main(String[] args) {
         try {
-            String url = "https://www.mlc.com.au/masterkeyWeb/execute/FramesetUnitPrices";
-     
+
             HttpUnitOptions.setScriptingEnabled(false);
             WebConversation client = new WebConversation();
-            client.getResponse(url);
+            client.getResponse(URL);
             WebResponse frame = client.getFrameContents("selection");
         
             Pattern pattern = Pattern.compile("\"MLC Platinum Global Fund \\(closed\\),MasterKey Unit Trust,([^,]+),([^,]+),");
