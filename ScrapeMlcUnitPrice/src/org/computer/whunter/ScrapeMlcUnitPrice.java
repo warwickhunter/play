@@ -22,12 +22,11 @@ public class ScrapeMlcUnitPrice {
 
     public static void main(String[] args) {
         try {
-
             HttpUnitOptions.setScriptingEnabled(false);
             WebConversation client = new WebConversation();
             client.getResponse(URL);
             WebResponse frame = client.getFrameContents("selection");
-        
+
             Pattern pattern = Pattern.compile("\"MLC Platinum Global Fund \\(closed\\),MasterKey Unit Trust,([^,]+),([^,]+),");
             Matcher matcher = pattern.matcher(frame.getText());
             if (matcher.find() && matcher.groupCount() > 1) {
