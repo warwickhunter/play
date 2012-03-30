@@ -1,0 +1,84 @@
+<project name="bees-build" default="dist" basedir=".">
+    <description>
+        Application build file
+    </description>
+    <property environment="env" />
+    <property name="src" location="src" />
+    <property name="webapp.dir" location="webapp" />
+    <property name="classes" location="${webapp.dir}/WEB-INF/classes" />
+    <property name="lib.dir" location="lib" />
+    
+    <property name="build" value="build" />
+    <property name="build.dir" location="${build}" />
+    <property name="war.file" location="${build}/webapp.war" />
+    <property name="src.file" location="${build}/webapp-src.zip" />
+    
+    <!-- set default values for bees tasks -->
+    <property name="bees.appid" value="" />
+    <property name="run.port" value="8080" />
+    <property name="run.environment" value="" />
+    
+    <path id="webapp.classpath">
+        <fileset dir="${webapp.dir}/WEB-INF/lib">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset dir="${lib.dir}">
+            <include name="*.jar"/>
+        </fileset>
+        </path> 
+
+    <target name="init">
+        <mkdir dir="${classes}" />
+    </target>
+    
+    <target name="clean" description="clean up">
+        <delete dir="${classes}" />
+        <delete dir="${build.dir}" />
+        <delete dir="${webapp.dir}/WEB-INF/classes" />
+    </target>
+
+    <target name="compile" depends="init" description="compile the source ">
+        <javac srcdir="${src}" destdir="${classes}" classpathref="webapp.classpath" />
+        <copy todir="${classes}">
+            <fileset dir="${src}" excludes="**/*.java" />
+        </copy>
+    </target>
+
+    <target name="dist" depends="compile" description="generate the distribution">
+        <mkdir dir="${build.dir}" />
+        <war destfile="${war.file}" basedir="${webapp.dir}" webxml="${webapp.dir}/WEB-INF/web.xml" />
+        
+        <zip destfile="${src.file}">            
+            <zipfileset dir="${basedir}">
+                <exclude name="${build}/**" />
+                <exclude name="${webapp.dir}/WEB-INF/classes/**" />
+            </zipfileset>
+        </zip>      
+    </target>
+    
+    <target name="deploy" depends="dist,bees-classpath" description="deploy the distribution to CloudBees">
+        <taskdef name="deploy" classname="com.staxnet.ant.DeployTask">
+            <classpath refid="staxtasks.class.path" />
+        </taskdef>
+        <deploy deployfile="${war.file}" appid="${bees.appid}" />
+    </target>
+    
+    <target name="run" depends="compile,bees-classpath" description="run the application in CloudBees">
+        <taskdef name="run" classname="com.staxnet.ant.RunWarTask">
+            <classpath refid="staxtasks.class.path" />
+        </taskdef>
+        <run workingdir="${build.dir}/staxcat" webappdir="${webapp.dir}" port="${run.port}" environment="${run.environment}" />
+    </target>
+
+    <target name="bees-classpath">
+        <property environment="env" />
+        <fail message="BEES_HOME environment is not set" unless="env.BEES_HOME" />
+        <property name="bees.home" value="${env.BEES_HOME}"/>
+        <echo message="bees home: ${bees.home}" />
+
+        <path id="staxtasks.class.path">
+            <fileset dir="${bees.home}/lib" includes="*.jar"/>
+        </path>
+    </target>
+</project>
+
