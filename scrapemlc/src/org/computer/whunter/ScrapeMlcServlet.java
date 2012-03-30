@@ -30,11 +30,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.meterware.httpunit.HttpUnitOptions;
 import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebResponse;
-import com.sun.tools.javac.util.Log;
 
 
 /**
- * Scrape the MLC web site for the current unit price.
+ * Scrape the MLC web site for the current unit price. This is a Cloudbees version.
  * 
  * @author Warwick Hunter
  * @since  2012-03-30
