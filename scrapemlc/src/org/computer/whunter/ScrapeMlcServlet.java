@@ -5,6 +5,10 @@ package org.computer.whunter;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Calendar;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,6 +22,7 @@ import javax.mail.internet.MimeMessage;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.meterware.httpunit.HttpUnitOptions;
 import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebResponse;
+import com.sun.tools.javac.util.Log;
 
 
 /**
@@ -38,6 +44,8 @@ public class ScrapeMlcServlet extends HttpServlet {
     
     private static final String URL = "https://www.mlc.com.au/masterkeyWeb/execute/FramesetUnitPrices";
 
+    private DailyRunner m_dailyRunner;
+    
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/plain");
         resp.getWriter().println("MLC Unit Price");
@@ -84,5 +92,65 @@ public class ScrapeMlcServlet extends HttpServlet {
         } catch (NamingException e) {
             log(e.toString());
         }        
+    }
+
+    private class DailyRunner implements Runnable {
+
+        private URL     m_url;
+        private boolean m_halt = false;
+        
+        private DailyRunner() {
+            try {
+                m_url = new URL("http://scrapemlc.wasa.cloudbees.net/scrape");
+            } catch (MalformedURLException e) {
+                log(e.toString());
+            }
+        }
+        
+        private void halt() {
+            m_halt = true;
+        }
+        
+        @Override
+        public void run() {
+            try {
+                while (!m_halt) {
+                    log(String.format("URL content %s", m_url.getContent()));
+                    Calendar now = Calendar.getInstance(TimeZone.getTimeZone("Australia/Brisbane"));
+                    Calendar midday = (Calendar)now.clone();
+                    midday.set(Calendar.HOUR_OF_DAY, 12);
+                    midday.set(Calendar.MINUTE, 0);
+                    midday.set(Calendar.SECOND, 0);
+                    if (now.after(midday)) {
+                        midday.add(Calendar.DAY_OF_MONTH, 1);
+                    }
+                    long sleepMs = midday.getTimeInMillis() - now.getTimeInMillis();
+                    log(String.format("Sleeping for %s secs", sleepMs / 1000));
+                    if (!m_halt) {
+                        Thread.sleep(sleepMs);
+                    }
+                }
+            } catch (MalformedURLException e) {
+                log(e.toString());
+            } catch (IOException e) {
+                log(e.toString());
+            } catch (InterruptedException e) {
+                log(e.toString());
+            }
+        }
+    }
+    
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        m_dailyRunner = new DailyRunner();
+        Thread thread = new Thread(m_dailyRunner);
+        thread.start();
+    }
+
+    @Override
+    public void destroy() {
+        m_dailyRunner.halt();
+        super.destroy();
     }
 }
