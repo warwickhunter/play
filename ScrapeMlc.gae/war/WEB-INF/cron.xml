@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+  <cron>
+    <url>/scrapemlc</url>
+    <description>Get the MLC unit price every minute</description>
+    <schedule>every day 12:00</schedule>
+    <timezone>Australia/Brisbane</timezone>
+  </cron>
+</cronentries>
