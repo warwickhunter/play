@@ -76,9 +76,11 @@ public class ScrapeMlcServlet extends HttpServlet {
             Context initCtx = new InitialContext();
             Session session = (Session) initCtx.lookup("java:comp/env/mail/SendGrid");
             MimeMessage msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress("fiona.m.hunter@gmail.com", "Fiona Hunter"));
-            msg.addRecipient(Message.RecipientType.TO, new InternetAddress("fiona.m.hunter@gmail.com", "Fiona Hunter"));
-            msg.addRecipient(Message.RecipientType.CC, new InternetAddress("warwickhunter@gmail.com", "Warwick Hunter"));
+            InternetAddress fiona = new InternetAddress("fiona.m.hunter@gmail.com", "Fiona Hunter");
+            InternetAddress warwick = new InternetAddress("warwickhunter@gmail.com", "Warwick Hunter");
+            msg.setFrom(fiona);
+            msg.addRecipient(Message.RecipientType.TO, fiona);
+            msg.addRecipient(Message.RecipientType.CC, warwick);
             msg.setSubject("MLC");
             msg.setText(msgBody);
             Transport.send(msg);
