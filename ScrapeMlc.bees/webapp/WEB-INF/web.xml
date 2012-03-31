@@ -3,23 +3,14 @@
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
    version="2.5"> 
-  <display-name>Simple</display-name>
+  <display-name>Scrape MLC unit price</display-name>
   
-  <servlet>
-    <servlet-name>HelloServlet</servlet-name>  
-    <servlet-class>example.HelloServlet</servlet-class>  
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>HelloServlet</servlet-name>
-    <url-pattern>/hello</url-pattern>
-  </servlet-mapping>
-
   <servlet>
     <servlet-name>ScrapeMlcServlet</servlet-name>  
     <servlet-class>org.computer.whunter.ScrapeMlcServlet</servlet-class>  
   </servlet>
   <servlet-mapping>
     <servlet-name>ScrapeMlcServlet</servlet-name>
-    <url-pattern>/scrape</url-pattern>
+    <url-pattern>/*</url-pattern>
   </servlet-mapping>
 </web-app>
