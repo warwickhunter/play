@@ -43,8 +43,6 @@ public class ScrapeMlcServlet extends HttpServlet {
     
     private static final String URL = "https://www.mlc.com.au/masterkeyWeb/execute/FramesetUnitPrices";
 
-    private DailyRunner m_dailyRunner;
-    
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/plain");
         resp.getWriter().println("MLC Unit Price");
@@ -93,65 +91,5 @@ public class ScrapeMlcServlet extends HttpServlet {
         } catch (NamingException e) {
             log(e.toString());
         }        
-    }
-
-    private class DailyRunner implements Runnable {
-
-        private URL     m_url;
-        private boolean m_halt = false;
-        
-        private DailyRunner() {
-            try {
-                m_url = new URL("http://scrapemlc.wasa.cloudbees.net/scrape");
-            } catch (MalformedURLException e) {
-                log(e.toString());
-            }
-        }
-        
-        private void halt() {
-            m_halt = true;
-        }
-        
-        @Override
-        public void run() {
-            try {
-                while (!m_halt) {
-                    log(String.format("URL content %s", m_url.getContent()));
-                    Calendar now = Calendar.getInstance(TimeZone.getTimeZone("Australia/Brisbane"));
-                    Calendar midday = (Calendar)now.clone();
-                    midday.set(Calendar.HOUR_OF_DAY, 12);
-                    midday.set(Calendar.MINUTE, 0);
-                    midday.set(Calendar.SECOND, 0);
-                    if (now.after(midday)) {
-                        midday.add(Calendar.DAY_OF_MONTH, 1);
-                    }
-                    long sleepMs = midday.getTimeInMillis() - now.getTimeInMillis();
-                    log(String.format("Sleeping for %s secs", sleepMs / 1000));
-                    if (!m_halt) {
-                        Thread.sleep(sleepMs);
-                    }
-                }
-            } catch (MalformedURLException e) {
-                log(e.toString());
-            } catch (IOException e) {
-                log(e.toString());
-            } catch (InterruptedException e) {
-                log(e.toString());
-            }
-        }
-    }
-    
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        m_dailyRunner = new DailyRunner();
-        Thread thread = new Thread(m_dailyRunner);
-        thread.start();
-    }
-
-    @Override
-    public void destroy() {
-        m_dailyRunner.halt();
-        super.destroy();
     }
 }

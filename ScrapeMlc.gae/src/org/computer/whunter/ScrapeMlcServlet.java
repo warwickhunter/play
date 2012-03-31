@@ -33,6 +33,8 @@ public class ScrapeMlcServlet extends HttpServlet {
         try {
             URL url = new URL(THE_URL);
             URLConnection con = url.openConnection();
+            con.setConnectTimeout(20 * 1000);
+            con.setReadTimeout(20 * 1000);
             resp.setContentType(con.getContentType());
             BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
             for (String line = reader.readLine(); line != null; line = reader.readLine()) {
