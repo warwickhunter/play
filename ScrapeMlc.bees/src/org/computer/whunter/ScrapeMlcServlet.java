@@ -5,8 +5,6 @@ package org.computer.whunter;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
@@ -22,7 +20,6 @@ import javax.mail.internet.MimeMessage;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -79,7 +76,8 @@ public class ScrapeMlcServlet extends HttpServlet {
             msg.setFrom(fiona);
             msg.addRecipient(Message.RecipientType.TO, fiona);
             msg.addRecipient(Message.RecipientType.CC, warwick);
-            msg.setSubject("MLC");
+            Calendar now = Calendar.getInstance(TimeZone.getTimeZone("Australia/Brisbane"));
+            msg.setSubject(String.format("MLC unit price %tF", now));
             msg.setText(msgBody);
             Transport.send(msg);
         } catch (AddressException e) {
