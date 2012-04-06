@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Random script snippets</title>
+</head>
+<body>
+<script>
+d = new Date();
+document.write(d + "<br/>\n");
+for (i in navigator) {
+	document.write(i + "=");
+    document.write(navigator[i] + "<br/>\n");
+    if (i == "geolocation" || i == "mimeTypes" || i == "plugins") {
+        for (j in navigator[i]) {
+            document.write("&nbsp;&nbsp;&nbsp;&nbsp;" + j + "=");
+            document.write(navigator[i][j] + "<br/>\n");
+        }    	
+    }
+}
+</script>
+</body>
+</html>
