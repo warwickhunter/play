@@ -40,6 +40,19 @@ public class ScrapeMlcServlet extends HttpServlet {
     
     private static final String URL = "https://www.mlc.com.au/masterkeyWeb/execute/FramesetUnitPrices";
 
+    private InternetAddress m_recipient;
+    private InternetAddress m_sender;
+
+    public ScrapeMlcServlet() {
+        try {
+            m_recipient = new InternetAddress("fiona.m.hunter@gmail.com", "Fiona Hunter");
+            m_sender = new InternetAddress("warwickhunter@gmail.com", "Warwick Hunter");
+        }
+        catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/plain");
         resp.getWriter().println("MLC Unit Price");
@@ -71,11 +84,9 @@ public class ScrapeMlcServlet extends HttpServlet {
             Context initCtx = new InitialContext();
             Session session = (Session) initCtx.lookup("java:comp/env/mail/SendGrid");
             MimeMessage msg = new MimeMessage(session);
-            InternetAddress fiona = new InternetAddress("fiona.m.hunter@gmail.com", "Fiona Hunter");
-            InternetAddress warwick = new InternetAddress("warwickhunter@gmail.com", "Warwick Hunter");
-            msg.setFrom(fiona);
-            msg.addRecipient(Message.RecipientType.TO, fiona);
-            msg.addRecipient(Message.RecipientType.CC, warwick);
+            msg.setFrom(m_sender);
+            msg.addRecipient(Message.RecipientType.TO, m_recipient);
+            msg.addRecipient(Message.RecipientType.CC, m_sender);
             Calendar now = Calendar.getInstance(TimeZone.getTimeZone("Australia/Brisbane"));
             msg.setSubject(String.format("MLC unit price %tF", now));
             msg.setText(msgBody);
@@ -83,8 +94,6 @@ public class ScrapeMlcServlet extends HttpServlet {
         } catch (AddressException e) {
             log(e.toString());
         } catch (MessagingException e) {
-            log(e.toString());
-        } catch (UnsupportedEncodingException e) {
             log(e.toString());
         } catch (NamingException e) {
             log(e.toString());
