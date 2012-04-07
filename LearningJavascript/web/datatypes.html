@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Data types</title>
+</head>
+<body>
+<script>
+
+function println(msg) {
+	document.write(msg + "<br/>\n");
+}
+
+// Object initialiser
+o = { x:1, y:2 };
+println("o=" + o);
+println("o.x=" + o.x);
+println("o.y=" + o.y);
+
+// Numbers
+x = 1
+println("x=" + x + " isFinite(x)=" + isFinite(x));
+x = Infinity
+println("x=" + x + " isFinite(x)=" + isFinite(x));
+x = NaN
+println("x=" + x + " isFinite(x)=" + isFinite(x));
+
+var n = 123456.789;
+println("n.toFixed(0)=" + n.toFixed(0));
+println("n.toFixed(2)=" + n.toFixed(2));
+println("n.toExponential(3)=" + n.toExponential(3));
+println("n.toPrecision(4)=" + n.toPrecision(4));
+
+// Strings
+s = String(42);
+n = Number("42");
+m = "21" * "2"
+println("s=" + s + " n=" + n + " m=" + m);
+println("s=" + typeof s + " n=" + typeof n + " m=" + typeof m);
+
+// Functions
+square = function(x) { return x * x };
+println("square(2)=" + square(2));
+</script>
+</body>
+</html>
