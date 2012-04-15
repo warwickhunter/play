@@ -32,26 +32,25 @@ function println(msg) {
     document.write(msg + "<br/>\n");
 }
 
-function displayProperties(obj) {
+function printProperty(name, obj) {
+    if (typeof obj == "string") {
+        println(name + "=\"" + obj + "\" (" + typeof obj + ")");
+    } else {
+        println(name + "=" + obj + " (" + typeof obj + ")");
+    }
+}
+
+function printProperties(obj) {
     for (var name in obj) {
-        if (obj.name != undefined) {
-        	if (typeof obj.name == "string") {
-                println(name + "=\"" + obj.name + "\" (" + typeof obj.name + ")");
-        	} else {
-                println(name + "=" + obj.name + " (" + typeof obj.name + ")");
-        	}
-        }
-        if (obj[name] != undefined) {
-            if (typeof obj[name] == "string") {
-                println(name + "=\"" + obj[name] + "\" (" + typeof obj[name] + ")");
-            } else {
-                println(name + "=" + obj[name] + " (" + typeof obj[name] + ")");
-            }
+    	if (obj.name != undefined) {
+        	printProperty(name, obj.name);
+        } else if (obj[name] != undefined) {
+            printProperty(name, obj[name]);
         }
     }
 }
 
-displayProperties(document);
+printProperties(document);
 </script>
 </body>
 </html>

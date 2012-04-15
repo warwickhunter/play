@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Arrays</title>
+</head>
+<body>
+<script>
+function println(msg) {
+    document.write(msg + "<br/>\n");
+}
+
+var a = new Array();
+for (var i = 0; i < 10; ++i) {
+	a[i] = i;
+}
+a[20] = 20;
+println(a);
+
+a.shift();
+println(a);
+
+var b = new Array();
+a.splice(2, 17, b)
+println("a=" + a);
+
+a.pop();
+println("a=" + a);
+
+var s = a.join(":");
+println("s=" + s);
+
+var r = a.reverse();
+println("r=" + r);
+
+</script>
+</body>
+</html>
