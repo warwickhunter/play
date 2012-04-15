@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Operators</title>
+</head>
+<body>
+<script>
+
+function println(msg) {
+	document.write(msg + "<br/>\n");
+}
+
+// The "in" operator
+var point = { x:1, y:1 };
+point.toString = function() { return "point (x=" + point.x + ", y=" + point.y + ")" };
+println("point=" + point)
+println("has x=" + ("x" in point));
+println("has y=" + ("y" in point));
+
+// The void operator
+println(point);
+println(void point);
+
+</script>
+</body>
+</html>

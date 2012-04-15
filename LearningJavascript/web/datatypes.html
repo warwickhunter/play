@@ -37,10 +37,43 @@ n = Number("42");
 m = "21" * "2"
 println("s=" + s + " n=" + n + " m=" + m);
 println("s=" + typeof s + " n=" + typeof n + " m=" + typeof m);
+var s1 = "hello";
+var s2 = "hell" + "o";
+if (s1 == s2) println("Strings compared by value");
 
 // Functions
 square = function(x) { return x * x };
 println("square(2)=" + square(2));
+
+// Objects
+var point = new Object();
+point.x = 2.3;
+point.y = -1.2;
+point.toString = function() { return "point(" + point.x + "," + point.y + ")" };
+println(point);
+
+// Arrays
+var a = new Array();
+a[0] = 1.2;
+a[1] = "javascript";
+a[5] = "is here";
+println(a);
+var b = new Array(42, "foo", "bar");
+println(b);
+var c = [51, "see", "bee"];
+println(c);
+
+// Date
+var now = Date();
+println("now " + now.toLocaleString());
+
+// var vs no var
+for (var i = 0; i < 3; ++i) {
+	println("i=" + i);
+}
+for (j = 0; j < 3; ++j) {
+    println("j=" + j);
+}
 </script>
 </body>
 </html>
