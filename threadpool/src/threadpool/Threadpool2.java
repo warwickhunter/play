@@ -3,6 +3,7 @@
  */
 package threadpool;
 
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -49,7 +50,7 @@ public class Threadpool2 {
         }
     }
 
-    private static class Job implements Runnable {
+    private static class Job implements Callable<String> {
 
         private final String m_id;
 
@@ -58,7 +59,7 @@ public class Threadpool2 {
         }
 
         @Override
-        public void run() {
+        public String call() {
             System.out.printf("%s start on %s %n", m_id, Thread.currentThread().getName());
             try {
                 Thread.sleep(500);
@@ -67,6 +68,7 @@ public class Threadpool2 {
                 e.printStackTrace();
             }
             System.out.printf("%s end on %s %n", m_id, Thread.currentThread().getName());
+            return "finished " + m_id;
         }
     }
 }
