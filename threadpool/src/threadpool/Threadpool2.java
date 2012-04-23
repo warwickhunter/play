@@ -1,5 +1,5 @@
 /**
- * Copyright Warwick Hunter 2010. All rights reserved.
+ * Copyright Warwick Hunter 2012. All rights reserved.
  */
 package threadpool;
 
