@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+Experiments with Google Javascript APIs. This html page must be loaded via a web server 
+and not directly as a file:// URL because the Google APIs do not work when loaded as a file. 
+
+Warwick Hunter 2012-06-03 
+ -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Google Plus</title>
+<script>
+var API_KEY = 'API key goes here';
+
+function println(/* ... */) {
+    for (var i = 0; i < arguments.length; ++i) {
+        console.log(arguments[i]);
+    }
+}
+
+function onLoad() {
+    println("onLoad");
+    gapi.client.setApiKey(API_KEY);
+    gapi.client.load('plus','v1', onPlusLoad);
+//    gapi.client.load('calendar','v3', onCalendarLoad);
+}
+
+function onCalendarLoad() {
+}
+
+function onPlusLoad() {
+    println("onPlusLoad");
+    var request = gapi.client.plus.activities.search({'query':'Google+', 'orderBy':'best', 'maxResults':'20'});
+    request.execute(onPlusResponse);
+}
+
+function onPlusResponse(response) {
+    var table = document.getElementById('table');
+    var td = document.getElementById('tableHead');
+    if (td != null) {
+        td.appendChild(document.createTextNode(response.title));
+    }
+    
+    for (item in response.items) {
+        var tr = document.createElement('tr');
+        var td = document.createElement('td');
+        td.appendChild(document.createTextNode(response.items[item].title));
+        tr.appendChild(td);
+        table.appendChild(tr);
+    }
+}
+</script>
+<script src="https://apis.google.com/js/client.js?onload=onLoad"></script>
+</head>
+<body>
+  <table border="1px">
+    <thead>
+      <tr>
+        <td id="tableHead"></td>
+      </tr>
+    </thead>
+    <tbody id="table">
+    </tbody>
+  </table>
+</body>
+</html>
