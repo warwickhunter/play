@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+Experiments with JQuery. 
+
+Warwick Hunter 2012-06-03 
+ -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>JQuery</title>
+<link rel="stylesheet" type="text/css" media="screen" href="tablesorter/themes/blue/style.css" />
+<script type="text/javascript" src="tablesorter/jquery-latest.js"></script>
+<script type="text/javascript" src="tablesorter/jquery.tablesorter.js"></script>
+<script type="text/javascript">
+function println(/* ... */) {
+    for (var i = 0; i < arguments.length; ++i) {
+        console.log(arguments[i]);
+    }
+}
+
+$(document).ready(function() {
+	   // generate markup
+	   $("#rating").append("Please rate: ");
+	   
+	   for ( var i = 1; i <= 5; i++ ) {
+	     $("#rating").append("<a href='#'>" + i + "</a> ");
+	     $("#tbody").append("<tr><td>" + i + "</td><td>a" + i + "</td></tr>");
+	   }
+	   
+	   // add markup to container and apply click handlers to anchors
+	   $("#rating a").click(function(e) {
+	     // stop normal link click
+	     e.preventDefault();
+	     
+	     // send request
+	     $.post("rate.php", {rating: $(this).html()}, function(xml) {
+	       // format and output result
+	       $("#rating").html(
+	         "Thanks for rating, current average: " +
+	         $("average", xml).text() +
+	         ", number of votes: " +
+	         $("count", xml).text()
+	       );
+	     });
+	   });
+	   
+	   $("#table").tablesorter({
+	       // striping looking
+		   widgets: ['zebra'] 
+	   });
+});
+
+</script>
+</head>
+<body>
+  <div id="rating"></div>
+  <a id="first" href="#">Some link</a>
+  <table id="table" class="tablesorter">
+  <thead><tr><th>Name</th><th>Value</th></tr></thead>
+  <tbody id="tbody"></tbody>
+  </table>
+</body>
+</html>

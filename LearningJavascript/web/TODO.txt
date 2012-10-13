@@ -1,1 +1,3 @@
-Up to page 150
+Up to page 150 of the Javascript book
+
+Playing with http://docs.jquery.com/Tutorials:Getting_Started_with_jQuery
