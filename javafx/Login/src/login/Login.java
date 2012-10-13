@@ -16,16 +16,16 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
 /**
- *
- * @author whunter
+ * Java FX tutorial login window
+ * 
+ * @see http://docs.oracle.com/javafx/2/get_started/css.htm
+ * @author Warwick Hunter
+ * @since  2012-10-13
  */
 public class Login extends Application {
     
@@ -40,7 +40,7 @@ public class Login extends Application {
         grid.setPadding(new Insets(25, 25, 25, 25));
         
         Text sceneTitle = new Text("Welcome");
-        sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        sceneTitle.setId("welcome-text");
         grid.add(sceneTitle, 0, 0, 2, 1);
 
         Label userName = new Label("User Name:");
@@ -67,13 +67,14 @@ public class Login extends Application {
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
-                actionTarget.setFill(Color.FIREBRICK);
                 actionTarget.setText("Sign in button pressed");
+                actionTarget.setId("actiontarget");
             }
         });
         
         Scene scene = new Scene(grid, 350, 275);
         primaryStage.setScene(scene);
+        scene.getStylesheets().add(Login.class.getResource("Login.css").toExternalForm());
         
         primaryStage.show();
     }
