@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Functions</title>
+</head>
+<body>
+<script>
+
+// Optional arguments
+function println(msg, arg1, arg2) {
+    msg  = msg  || "";
+    arg1 = arg1 || "";
+    arg2 = arg2 || "";
+    document.write(msg);
+    document.write(arg1);
+    document.write(arg2);
+    document.write("<br/>\n");
+}
+
+println("one");
+println();
+println("one", " two");
+println("one", " two", " three");
+println("one", " two", " three", " four");
+
+// Variable argument list
+function println2(/* ... */) {
+    for (var i = 0; i < arguments.length; ++i) {
+        document.write(arguments[i]);
+    }
+    document.write("<br/>\n");
+}
+
+println2("one");
+println2();
+println2("one", " two");
+println2("one", " two", " three");
+println2("one", " two", " three", " four");
+
+</script>
+</body>
+</html>

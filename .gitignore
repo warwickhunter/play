@@ -16,3 +16,5 @@ warwickhunter.github.com
 gwt
 jsf
 java7/bin
+/javafx/FXMLExample/nbproject/private/
+/javafx/FXMLExample/dist/
