@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml" fx:controller="issuetrackinglite.IssueTrackingLiteController">
+  <children>
+    <SplitPane dividerPositions="0.25" focusTraversable="true" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <items>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <children>
+            <ListView fx:id="list" prefHeight="600.0" prefWidth="197.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+          </children>
+        </AnchorPane>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <children>
+            <SplitPane dividerPositions="0.35" focusTraversable="true" orientation="VERTICAL" prefHeight="600.0" prefWidth="597.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                  <children>
+                    <TableView prefHeight="207.0" prefWidth="597.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <columns>
+                        <TableColumn prefWidth="75.0" text="Column X" fx:id="colName" />
+                        <TableColumn prefWidth="75.0" text="Column X" fx:id="colStatus" />
+                        <TableColumn prefWidth="75.0" text="Column X" fx:id="colSynopsis" />
+                      </columns>
+                    </TableView>
+                  </children>
+                </AnchorPane>
+                <AnchorPane fx:id="details" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                  <children>
+                    <HBox id="HBox" alignment="CENTER" layoutX="16.0" layoutY="11.0" spacing="5.0">
+                      <children>
+                        <Label fx:id="displayedIssueLabel" text="PROJECT / ID" />
+                        <TextField fx:id="synopsis" prefWidth="484.0" text="SYNOPSIS" />
+                      </children>
+                    </HBox>
+                    <Label layoutX="16.0" layoutY="47.0" prefWidth="102.0" text="DESCRIPTION" />
+                    <TextArea fx:id="descriptionValue" layoutX="16.0" layoutY="68.0" prefHeight="298.0" prefWidth="566.0" wrapText="true" />
+                  </children>
+                </AnchorPane>
+              </items>
+            </SplitPane>
+          </children>
+        </AnchorPane>
+      </items>
+    </SplitPane>
+  </children>
+  <stylesheets>
+    <URL value="@IssueTrackingLite.css" />
+  </stylesheets>
+</AnchorPane>
