@@ -3,14 +3,15 @@ cxx
 datanucleus-samples-jdo-tutorial-2.1
 gae
 groovy
-jdo_tutorial.tar.gz
+*.gz
 jplay
 jsr234
 misc
 qt
 svn_play
 build
-threadpool/bin
+*/bin
+*/dist
 grails
 warwickhunter.github.com
 gwt
@@ -20,3 +21,4 @@ java7/bin
 /javafx/FXMLExample/dist/
 /javafx/ColourCircles/nbproject/private/
 /javafx/ColourCircles/dist/
+/javafx/IssueTrackingLite/nbproject/private/
