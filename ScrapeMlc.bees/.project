@@ -14,5 +14,6 @@
 	<natures>
 		<nature>com.cloudbees.eclipse.core.cloudbeesNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>org.apache.ivyde.eclipse.ivynature</nature>
 	</natures>
 </projectDescription>
