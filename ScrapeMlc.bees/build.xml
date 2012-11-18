@@ -1,4 +1,4 @@
-<project name="bees-build" default="dist" basedir=".">
+<project name="bees-build" default="dist" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
     <description>Application build file</description>
 
     <property environment="env" />
@@ -9,8 +9,8 @@
     
     <property name="build" value="build" />
     <property name="build.dir" location="${build}" />
-    <property name="war.file" location="${build}/webapp.war" />
-    <property name="src.file" location="${build}/webapp-src.zip" />
+    <property name="war.file" location="${build}/ScrapeMlc.war" />
+    <property name="src.file" location="${build}/ScrapeMlc-src.zip" />
     
     <!-- set default values for bees tasks -->
     <property name="bees.appid" value="" />
@@ -18,9 +18,6 @@
     <property name="run.environment" value="" />
     
     <path id="webapp.classpath">
-        <fileset dir="${webapp.dir}/WEB-INF/lib">
-            <include name="*.jar"/>
-        </fileset>
         <fileset dir="${lib.dir}">
             <include name="*.jar"/>
         </fileset>
@@ -29,15 +26,20 @@
     <target name="init">
         <mkdir dir="${classes}" />
     </target>
+
+    <target name="resolve" description="retrieve dependencies with ivy">
+        <ivy:retrieve />
+    </target>
     
     <target name="clean" description="clean up">
         <delete dir="${classes}" />
         <delete dir="${build.dir}" />
         <delete dir="${webapp.dir}/WEB-INF/classes" />
+        <delete dir="${basedir}/lib" />
     </target>
 
-    <target name="compile" depends="init" description="compile the source ">
-        <javac srcdir="${src}" destdir="${classes}" classpathref="webapp.classpath" />
+    <target name="compile" depends="init,resolve" description="compile the source ">
+        <javac srcdir="${src}" destdir="${classes}" classpathref="webapp.classpath" includeantruntime="false"/>
         <copy todir="${classes}">
             <fileset dir="${src}" excludes="**/*.java" />
         </copy>
@@ -45,7 +47,11 @@
 
     <target name="dist" depends="compile" description="generate the distribution">
         <mkdir dir="${build.dir}" />
-        <war destfile="${war.file}" basedir="${webapp.dir}" webxml="${webapp.dir}/WEB-INF/web.xml" />
+        <war destfile="${war.file}" basedir="${webapp.dir}" webxml="${webapp.dir}/WEB-INF/web.xml" >
+            <lib dir="${lib.dir}">
+                <include name="*.jar"/>
+            </lib>
+        </war>
         
         <zip destfile="${src.file}">            
             <zipfileset dir="${basedir}">

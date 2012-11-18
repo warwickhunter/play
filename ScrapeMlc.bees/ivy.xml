@@ -1,0 +1,13 @@
+<ivy-module version="2.0">
+    <info organisation="org.computer.whunter" module="ScrapeMlc.bees"/>
+    <dependencies>
+        <dependency org="com.google.guava" name="guava"       rev="13.0.1"/>
+        <dependency org="javax.servlet"    name="servlet-api" rev="2.5"/> 
+        <dependency org="javax.servlet"    name="jstl"        rev="1.2"/>
+        <dependency org="httpunit"         name="httpunit"    rev="1.7"/>
+        <dependency org="nekohtml"         name="nekohtml"    rev="1.9.6.2"/> 
+        <dependency org="xerces"           name="xercesImpl"  rev="2.10.0"/>
+        <dependency org="javax.mail"       name="mail"        rev="1.4.5"/>
+        <dependency org="rhino"            name="js"          rev="1.7R2"/>
+    </dependencies>
+</ivy-module>
