@@ -1,9 +1,8 @@
 <project name="bees-build" default="dist" basedir=".">
-    <description>
-        Application build file
-    </description>
+    <description>Application build file</description>
+
     <property environment="env" />
-    <property name="src" location="src" />
+    <property name="src" location="src/main/java" />
     <property name="webapp.dir" location="webapp" />
     <property name="classes" location="${webapp.dir}/WEB-INF/classes" />
     <property name="lib.dir" location="lib" />
@@ -25,7 +24,7 @@
         <fileset dir="${lib.dir}">
             <include name="*.jar"/>
         </fileset>
-        </path> 
+    </path> 
 
     <target name="init">
         <mkdir dir="${classes}" />

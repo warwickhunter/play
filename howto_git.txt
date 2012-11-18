@@ -29,5 +29,12 @@ Make your mods in the new_feature branch; commit as many times as you wish
 Merge changes back into the master 
 # git checkout master
 # git merge new_feature
+#
 
+Setting the remote branch
+--------------------------
+If you see a message complaining that this is not the remote origin for the current
+branch it can be fixed with this command.
+
+git branch --set-upstream master hub/master
 
