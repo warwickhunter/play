@@ -28,7 +28,7 @@ Copyright (c) 2013, Warwick Hunter. All rights reserved.
             <arg line="${dir.src}/protobuf/photos_v1.proto"/>
         </exec>
         <exec executable="protoc">
-            <arg line="--cpp_out=${dir.gen}"/>
+            <arg line="--python_out=${dir.gen}"/>
             <arg line="--proto_path=${dir.src}"/>
             <arg line="${dir.src}/protobuf/photos_v1.proto"/>
         </exec>

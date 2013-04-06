@@ -59,7 +59,7 @@ public class Photos {
             album.addPicture(picture);
             album.setPrivacy(Privacy.PUBLIC);
             
-            FileOutputStream out = new FileOutputStream("album.proto");
+            FileOutputStream out = new FileOutputStream("album.dat");
             album.build().writeTo(out);
             out.close();
             
@@ -78,7 +78,7 @@ public class Photos {
      */
     private static void load() {
         try {
-            FileInputStream in = new FileInputStream("album.proto");
+            FileInputStream in = new FileInputStream("album.dat");
             Album album = Album.parseFrom(in);
             in.close();
             System.out.printf("album {%n%s}%n", album);
