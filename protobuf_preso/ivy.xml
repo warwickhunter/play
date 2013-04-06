@@ -1,0 +1,6 @@
+<ivy-module version="2.0">
+    <info organisation="au.id.wh" module="protobuf-preso"/>
+    <dependencies>
+        <dependency org="com.google.protobuf" name="protobuf-java" rev="2.3.0" conf="default->master"/>
+    </dependencies>
+</ivy-module>

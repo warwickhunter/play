@@ -1,0 +1,64 @@
+<!--
+Copyright (c) 2013, Warwick Hunter. All rights reserved.
+-->
+<project name="protobuf-preso" default="dist" xmlns:ivy="antlib:org.apache.ivy.ant">
+    <description>Ant file to build the code for my Google Protocol Buffers presentation</description>
+
+    <property environment="env"/>
+    <property name="dir.build"     value="${basedir}/build"/>
+    <property name="dir.lib"       value="${basedir}/lib"/>
+    <property name="dir.src"       value="${basedir}/src"/>
+    <property name="dir.gen"       value="${basedir}/gen"/>
+    <property name="dir.dist"      value="${basedir}/dist"/>
+    <property name="build.version" value="1.0.0"/>
+
+    <path id="classpath.base">
+        <pathelement location="${dir.build}/classes"/>
+        <fileset dir="${basedir}/lib">
+          <include name="*.jar" />
+        </fileset>
+    </path>
+
+    <target name="generate" description="generate code from protocol definition">
+        <mkdir dir="${dir.gen}"/>
+        <mkdir dir="${dir.dist}"/>
+        <exec executable="protoc">
+            <arg line="--java_out=${dir.gen}"/>
+            <arg line="--proto_path=${dir.src}"/>
+            <arg line="${dir.src}/protobuf/photos_v1.proto"/>
+        </exec>
+    </target>
+    
+    <target name="compile" depends="generate,resolve" description="compile the source">
+        <mkdir dir="${dir.build}/classes"/>
+        <javac srcdir="${dir.gen}" destdir="${dir.build}/classes" includeantruntime="false">
+            <classpath refid="classpath.base" />
+        </javac>
+        <javac srcdir="${dir.src}" destdir="${dir.build}/classes" includeantruntime="false">
+            <classpath refid="classpath.base" />
+        </javac>
+    </target>
+
+    <target name="dist" depends="compile" description="generate the jar" >
+        <mkdir dir="${dir.dist}"/>
+        <jar destfile="${dir.dist}/${ant.project.name}-${build.version}.jar" basedir="${dir.build}/classes"/>
+    </target>
+
+    <target name="clean" description="clean up">
+        <delete dir="${dir.lib}"/>
+        <delete dir="${dir.build}"/>
+        <delete dir="${dir.dist}"/>
+    </target>
+
+    <!-- Ivy dependency management -->
+    <target name="resolve" description="Retrieve dependencies with ivy">
+        <ivy:retrieve />
+    </target>
+    
+    <target name="publish" depends="dist" description="publish to a repository">
+        <ivy:publish resolver="local" overwrite="true" pubrevision="${build.version}">
+            <artifacts pattern="dist/[module]-[revision].[ext]"/>
+        </ivy:publish>
+    </target>
+    
+</project>

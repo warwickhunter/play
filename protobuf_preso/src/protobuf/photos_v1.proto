@@ -1,0 +1,29 @@
+//
+// Copyright (c) Warwick Hunter 2013, all rights reserved.
+//
+// A sample Google Protocol Buffer. This is for a mythical photo
+// sharing application.
+//
+// @author Warwick Hunter
+// @since  2013-04-06
+//
+package photos;
+
+option java_package         = "au.id.wh.photos";
+option java_outer_classname = "PhotosV1";
+
+// An picture that is to be shared
+message Picture {
+    required bytes  image         = 1;
+    required string imageMimeType = 2;
+    optional string description   = 3;
+    optional string timestamp     = 4;
+    optional double latitude      = 5;
+    optional double longitude     = 6;
+}
+
+// An album of pictures
+message Album {
+    required string  name      = 1;
+    repeated Picture picture   = 2;
+}
