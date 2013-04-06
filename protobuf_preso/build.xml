@@ -27,6 +27,11 @@ Copyright (c) 2013, Warwick Hunter. All rights reserved.
             <arg line="--proto_path=${dir.src}"/>
             <arg line="${dir.src}/protobuf/photos_v1.proto"/>
         </exec>
+        <exec executable="protoc">
+            <arg line="--cpp_out=${dir.gen}"/>
+            <arg line="--proto_path=${dir.src}"/>
+            <arg line="${dir.src}/protobuf/photos_v1.proto"/>
+        </exec>
     </target>
     
     <target name="compile" depends="generate,resolve" description="compile the source">
@@ -42,6 +47,12 @@ Copyright (c) 2013, Warwick Hunter. All rights reserved.
     <target name="dist" depends="compile" description="generate the jar" >
         <mkdir dir="${dir.dist}"/>
         <jar destfile="${dir.dist}/${ant.project.name}-${build.version}.jar" basedir="${dir.build}/classes"/>
+    </target>
+
+    <target name="run" depends="dist">
+        <java classname="protobuf.Photos">
+            <classpath refid="classpath.base" />
+        </java>
     </target>
 
     <target name="clean" description="clean up">

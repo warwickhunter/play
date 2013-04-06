@@ -12,18 +12,24 @@ package photos;
 option java_package         = "au.id.wh.photos";
 option java_outer_classname = "PhotosV1";
 
+enum Privacy {
+    PUBLIC = 0;
+    PRIVATE = 1;
+}
+
 // An picture that is to be shared
 message Picture {
-    required bytes  image         = 1;
-    required string imageMimeType = 2;
-    optional string description   = 3;
-    optional string timestamp     = 4;
-    optional double latitude      = 5;
-    optional double longitude     = 6;
+    required bytes   image         = 1;
+    required string  imageMimeType = 2;
+    optional string  description   = 3;
+    optional string  timestamp     = 4;
+    optional double  latitude      = 5;
+    optional double  longitude     = 6;
 }
 
 // An album of pictures
 message Album {
     required string  name      = 1;
     repeated Picture picture   = 2;
+    required Privacy privacy   = 3;
 }

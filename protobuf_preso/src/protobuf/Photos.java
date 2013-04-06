@@ -16,6 +16,7 @@ import java.util.TimeZone;
 
 import au.id.wh.photos.PhotosV1.Album;
 import au.id.wh.photos.PhotosV1.Picture;
+import au.id.wh.photos.PhotosV1.Privacy;
 
 import com.google.protobuf.ByteString;
 
@@ -56,6 +57,7 @@ public class Photos {
             Album.Builder album = Album.newBuilder();
             album.setName("Warwick in Modena");
             album.addPicture(picture);
+            album.setPrivacy(Privacy.PUBLIC);
             
             FileOutputStream out = new FileOutputStream("album.proto");
             album.build().writeTo(out);
