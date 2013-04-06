@@ -1,2 +1,4 @@
 /lib
 /gen
+/album.proto
+/picture.proto
