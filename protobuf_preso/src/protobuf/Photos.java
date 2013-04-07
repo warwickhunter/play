@@ -63,7 +63,7 @@ public class Photos {
             album.build().writeTo(out);
             out.close();
             
-            long protobufSize = new File("album.proto").length();
+            long protobufSize = new File("album.dat").length();
             System.out.printf("protobuf size=%d, image size=%d, the rest=%d%n", 
                               protobufSize, IMAGE_EXCERPT_SIZE, 
                               protobufSize - IMAGE_EXCERPT_SIZE);
