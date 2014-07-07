@@ -47,12 +47,18 @@ public class ExecutorExperiment {
                 System.out.printf("submit %s%n", i);
                 m_service.submit(new Job(i));
             }
+            
+            // Experiment with shutdown to see how it works
+            Thread.sleep(3000);
+            System.out.println("shutdown now");
+            m_executor.shutdownNow();
+            
             for (int i = 0; i < 5; ++i) {
                 Future<String> result = m_service.take();
                 System.out.println(result.get());
             }
 
-            m_executor.shutdown();
+            System.out.println("await termination");
             m_executor.awaitTermination(30, TimeUnit.SECONDS);
         }
         catch (InterruptedException e) {
@@ -74,10 +80,13 @@ public class ExecutorExperiment {
         @Override
         public String call() {
             try {
+                if (Thread.interrupted()) {
+                    System.out.printf("interrupted before sleep %d%n", m_number);
+                }
                 Thread.sleep(500 * (10 - m_number));
             }
             catch (InterruptedException e) {
-                e.printStackTrace();
+                return "interrupted during sleep " + m_number;
             }
             return "finished " + m_number;
         }
