@@ -38,3 +38,13 @@ branch it can be fixed with this command.
 
 git branch --set-upstream master hub/master
 
+
+Checking out a tag
+------------------
+git checkout tags/tag_name
+
+Reset the workspace to match the remote
+---------------------------------------
+git fetch origin
+git reset --hard origin/master (or whatever branch)
+
