@@ -1,13 +1,13 @@
+/**
+ * Copyright Warwick Hunter 2017. All rights reserved.
+ */
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Scanner;
-
-/**
- * Copyright Warwick Hunter 2017. All rights reserved.
- */
 
 /**
  * An example of how to send a query to a server using an HTTP POST.
@@ -54,7 +54,7 @@ public class SendQuery {
             con.setReadTimeout(2000);
             System.out.printf("Sending request to %s%n", url.toExternalForm());
             
-            // Encode the arguments into the body in a format suitable for a www-form-urlencoded POST
+            // Encode the arguments in a format suitable for a www-form-urlencoded POST and write them into the body.
             String body = encodeArguments(agentId, token, queryTerm, queryCommand);
             con.getOutputStream().write(body.getBytes());
             
