@@ -22,6 +22,7 @@ public class RxJavaChapter3 {
         merge();
         zip();
         combineLatest();
+        operators();
         TimeUnit.SECONDS.sleep(15);
     }
 
@@ -125,5 +126,25 @@ public class RxJavaChapter3 {
         slow.take(10)
             .withLatestFrom(fast, (s, f) -> f + ":" + s)
             .forEach(x -> System.out.printf("withLatestFrom %s%n", x));
+    }
+
+    private static void operators() {
+        Observable.range(1,  10)
+            .scan((total, item) -> total + item)
+            .subscribe(x -> System.out.printf("scan %d%n", x));
+
+        Observable.range(1,  10)
+            .reduce((total, item) -> total + item)
+            .subscribe(x -> System.out.printf("reduce %d%n", x));
+
+        Observable.range(1,  10)
+            .collect(StringBuilder::new, StringBuilder::append)
+            .map(StringBuilder::toString) // not strictly necessary
+            .subscribe(x -> System.out.printf("collect1 %s%n", x));
+
+        Observable.range(1,  10)
+            .collect(StringBuilder::new, (sb, s) -> sb.append(s).append(", "))
+            .map(StringBuilder::toString) // not strictly necessary
+            .subscribe(x -> System.out.printf("collect2 %s%n", x));
     }
 }
