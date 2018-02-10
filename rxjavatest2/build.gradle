@@ -1,0 +1,25 @@
+apply plugin:'java'
+
+archivesBaseName = 'rxjavates2'
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "io.reactivex.rxjava2:rxjava:2.1.9"
+    compile "commons-io:commons-io:2.6"
+}
+
+//create a single Jar with all dependencies
+task dist(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'RxJavaTest2', 'Implementation-Version': version,
+        'Main-Class': 'RxJava'
+    }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+defaultTasks 'dist'

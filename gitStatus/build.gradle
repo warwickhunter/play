@@ -1,0 +1,51 @@
+//
+// Git status reporting utility.
+//
+// Warwick Hunter 2018-01-21
+// 
+
+buildscript {
+    ext.kotlin_version = '1.2.20'
+    	
+    	repositories {
+        mavenCentral()
+    	}
+    dependencies {
+        	classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+apply plugin: 'kotlin'
+apply plugin: 'application'
+
+version "0.0.2"
+
+defaultTasks 'jar'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    	compile 'org.eclipse.jgit:org.eclipse.jgit:4.10.0.201712302008-r'
+    compile 'org.slf4j:slf4j-jdk14:1.7.25' // This stop slf4j complaining
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class':'git.GitStatusKt',
+                   'Implementation-Title': 'Git Status Reporting Utility',
+                   'Implementation-Version': version
+    }
+    // This code recursively collects and copies all of a project's files
+    // and adds them to the JAR itself. One can extend this task, to skip certain 
+    // files or particular types at will
+    doFirst {
+        from { 
+            configurations.compile.collect { file ->
+                file.isDirectory() ? file : zipTree(file)
+            }
+        }
+    }
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
+}

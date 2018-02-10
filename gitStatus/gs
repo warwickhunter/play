@@ -1,0 +1,7 @@
+#!/bin/bash
+#
+# Git Status
+#
+# Warwick Hunter 2018-01-28
+#
+kotlin $HOME/bin/gitStatus-0.0.2.jar
