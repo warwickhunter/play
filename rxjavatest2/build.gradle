@@ -10,6 +10,7 @@ repositories {
 dependencies {
     compile "io.reactivex.rxjava2:rxjava:2.1.9"
     compile "commons-io:commons-io:2.6"
+    compile "org.apache.commons:commons-lang3:3.7"
 }
 
 //create a single Jar with all dependencies

@@ -3,6 +3,7 @@ import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.tuple.Pair;
 
 import io.reactivex.Observable;
 
@@ -146,5 +147,36 @@ public class RxJavaChapter3 {
             .collect(StringBuilder::new, (sb, s) -> sb.append(s).append(", "))
             .map(StringBuilder::toString) // not strictly necessary
             .subscribe(x -> System.out.printf("collect2 %s%n", x));
+
+        Observable.just(1,2,3,4,1)
+            .distinct()
+            .subscribe(i -> System.out.printf("distinct1 %d%n", i));
+
+        getPairs()
+            .distinctUntilChanged(Pair::getRight)
+            .subscribe(i -> System.out.printf("distinct2 %s%n", i));
+
+        Observable.range(1, 10)
+            .take(1).single(42)
+            .subscribe(i -> System.out.printf("single %d%n", i));
+
+        Observable.range(1, 10)
+            .takeLast(3)
+            .subscribe(i -> System.out.printf("takeLast %d%n", i));
+
+        Observable.range(1, 10)
+            .takeWhile(i -> i < 5)
+            .subscribe(i -> System.out.printf("takeWhile %d%n", i));
     }
+
+    private static Observable<Pair<String,Boolean>> getPairs() {
+        return Observable.just(
+                Pair.of("a", false),
+                Pair.of("a", false),
+                Pair.of("a", false),
+                Pair.of("a", true),
+                Pair.of("a", false));
+    }
+
+
 }
