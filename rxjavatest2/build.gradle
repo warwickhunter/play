@@ -1,3 +1,10 @@
+//
+// Experiments with RxJava from "Reactive Programming with RxJava"
+//
+// @author Warwick Hunter
+// @since  2018-02-03
+//
+
 apply plugin:'java'
 
 archivesBaseName = 'rxjavates2'
