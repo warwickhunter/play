@@ -6,7 +6,8 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
 import io.reactivex.Observable;
-import io.reactivex.observables.GroupedObservable;
+import io.reactivex.ObservableSource;
+import io.reactivex.ObservableTransformer;
 
 /**
  * Experiments with RxJava from "Reactive Programming with RxJava"
@@ -173,6 +174,15 @@ public class RxJavaChapter3 {
             .groupBy(Pair::getRight)
             .concatMap(x -> x)
             .subscribe(y -> System.out.printf("groupBy1 %s%n", y));
+
+        getGroupablePairs()
+            .compose(RxJavaChapter3::odd)
+            .subscribe(y -> System.out.printf("compose1 %s%n", y));
+        
+        getGroupablePairs()
+            .compose(oddly())
+            .subscribe(y -> System.out.printf("compose2 %s%n", y));
+    
     }
 
     private static Observable<Pair<String,Boolean>> getPairs() {
@@ -190,6 +200,31 @@ public class RxJavaChapter3 {
                 Pair.of("b", true),
                 Pair.of("c", false),
                 Pair.of("d", true),
-                Pair.of("e", false));
+                Pair.of("e", false),
+                Pair.of("f", true));
     }
+    
+    private static Observable<Boolean> trueFalse = Observable.just(true, false).repeat();
+
+    private static <T> Observable<T> odd(Observable<T> upstream) {
+        return upstream
+                .zipWith(trueFalse, Pair::of)
+                .filter(Pair::getRight)
+                .map(Pair::getLeft);
+    }
+
+    private static <T> OddTransformer<T> oddly() {
+        return new OddTransformer<T>();
+    }
+    
+    private static class OddTransformer<T> implements ObservableTransformer<T,T> {
+        @Override
+        public ObservableSource<T> apply(Observable<T> upstream) {
+            return upstream
+                    .zipWith(trueFalse.skip(1), Pair::of)
+                    .filter(Pair::getRight)
+                    .map(Pair::getLeft);
+        }
+    }
+
 }
