@@ -1,0 +1,11 @@
+Answer,   9 is square,   8 is not prime,   7 is prime 
+Answer,  25 is square,  24 is not prime,  23 is prime 
+Answer,  49 is square,  48 is not prime,  47 is prime 
+Answer,  81 is square,  80 is not prime,  79 is prime 
+Answer, 169 is square, 168 is not prime, 167 is prime 
+Answer, 225 is square, 224 is not prime, 223 is prime 
+Answer, 361 is square, 360 is not prime, 359 is prime 
+Answer, 441 is square, 440 is not prime, 439 is prime 
+Answer, 729 is square, 728 is not prime, 727 is prime 
+Answer, 841 is square, 840 is not prime, 839 is prime 
+Count of answers 10 

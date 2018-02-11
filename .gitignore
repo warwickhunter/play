@@ -1,9 +1,12 @@
+*.log
+R.java
+nbproject
+*.tar.gz
 cityguide
 cxx
 datanucleus-samples-jdo-tutorial-2.1
 gae
 groovy
-.tar.gz
 jplay
 jsr234
 misc
@@ -23,3 +26,4 @@ javafx/ColourCircles/dist/
 javafx/IssueTrackingLite/nbproject/private/
 classes
 .gradle
+.settings
