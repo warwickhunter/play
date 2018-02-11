@@ -6,6 +6,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
 import io.reactivex.Observable;
+import io.reactivex.observables.GroupedObservable;
 
 /**
  * Experiments with RxJava from "Reactive Programming with RxJava"
@@ -167,6 +168,11 @@ public class RxJavaChapter3 {
         Observable.range(1, 10)
             .takeWhile(i -> i < 5)
             .subscribe(i -> System.out.printf("takeWhile %d%n", i));
+        
+        getGroupablePairs()
+            .groupBy(Pair::getRight)
+            .concatMap(x -> x)
+            .subscribe(y -> System.out.printf("groupBy1 %s%n", y));
     }
 
     private static Observable<Pair<String,Boolean>> getPairs() {
@@ -178,5 +184,12 @@ public class RxJavaChapter3 {
                 Pair.of("a", false));
     }
 
-
+    private static Observable<Pair<String,Boolean>> getGroupablePairs() {
+        return Observable.just(
+                Pair.of("a", false),
+                Pair.of("b", true),
+                Pair.of("c", false),
+                Pair.of("d", true),
+                Pair.of("e", false));
+    }
 }
