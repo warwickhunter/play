@@ -9,5 +9,6 @@ public class RxJava {
     public static void main(String[] args) throws InterruptedException {
         RxJavaChapter2.main(args);
         RxJavaChapter3.main(args);
+        RxJavaChapter4.main(args);
     }
 }
