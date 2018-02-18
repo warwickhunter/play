@@ -69,21 +69,10 @@ public class RxJavaChapter4 {
     }
 
     private static void parallel() throws InterruptedException {
-        Observable.just(rxMethod())
-            .observeOn(Schedulers.io())
-            .flatMap(x -> x)
-            .mergeWith(rxMethod())
-            .mergeWith(rxMethod())
+        Observable.range(1, 3)
+            .flatMap(x -> rxMethod()
+                            .subscribeOn(Schedulers.io()))
             .filter(line -> line.contains("thread") || line.contains("utc"))
             .blockingSubscribe(x -> System.out.printf("parallel1 %s on %s%n", x, thread()));
-
-        Observable.just(1)
-            .observeOn(Schedulers.io())
-            .flatMap(x -> rxMethod())
-            .mergeWith(rxMethod())
-            .mergeWith(rxMethod())
-            .mergeWith(rxMethod())
-            .filter(line -> line.contains("thread") || line.contains("utc"))
-            .blockingSubscribe(x -> System.out.printf("parallel2 %s on %s%n", x, thread()));
     }
 }
