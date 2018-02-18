@@ -7,7 +7,7 @@
 
 apply plugin:'java'
 
-archivesBaseName = 'rxjavates2'
+archivesBaseName = 'rxjavatest2'
 version = '1.0'
 
 repositories {
