@@ -19,6 +19,8 @@ dependencies {
     compile "commons-io:commons-io:2.6"
     compile "org.apache.commons:commons-lang3:3.7"
     compile "com.google.guava:guava:24.0-jre"
+    compile "io.dropwizard.metrics:metrics-core:4.0.0"
+    compile "org.slf4j:slf4j-jdk14:1.7.25"
 }
 
 //create a single Jar with all dependencies
