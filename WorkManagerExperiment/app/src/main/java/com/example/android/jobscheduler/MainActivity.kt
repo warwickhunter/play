@@ -16,13 +16,19 @@
 
 package com.example.android.jobscheduler
 
+import android.Manifest
 import android.app.Activity
 import android.app.job.JobScheduler
 import android.content.ComponentName
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.*
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
+import android.telephony.SmsManager
 import android.util.Log
 import android.widget.Button
 import android.widget.CheckBox
@@ -31,6 +37,10 @@ import android.widget.RadioButton
 import androidx.work.*
 import java.util.*
 import java.util.concurrent.TimeUnit
+
+private const val TO = "+61412341234" // Replace with a real phone number
+
+private const val REQUEST_SEND_SMS = 42
 
 /**
  * Schedules and configures work to be executed by a [WorkManager].
@@ -73,7 +83,28 @@ class MainActivity : Activity() {
 
         findViewById<Button>(R.id.cancel_button).setOnClickListener { cancelAllWork() }
         findViewById<Button>(R.id.finished_button).setOnClickListener { finishJob() }
-        findViewById<Button>(R.id.schedule_button).setOnClickListener { scheduleWork() }
+        findViewById<Button>(R.id.schedule_button).setOnClickListener {
+            val permission = Manifest.permission.SEND_SMS
+            if (ContextCompat.checkSelfPermission(this, permission) != PERMISSION_GRANTED) {
+                // Permission is not granted, must request it
+                ActivityCompat.requestPermissions(this, arrayOf(permission), REQUEST_SEND_SMS)
+            } else {
+                scheduleWork()
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            REQUEST_SEND_SMS -> {
+                // If request is cancelled, the result arrays are empty.
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    scheduleWork()
+                }
+                return
+            }
+        }
     }
 
     override fun onStop() {
@@ -94,9 +125,8 @@ class MainActivity : Activity() {
         startService(startServiceIntent)
     }
 
-    class ExampleWorker : Worker() {
 
-        private val TAG = this.javaClass.simpleName
+    class SendSmsWorker : Worker() {
 
         override fun doWork(): Result {
 
@@ -106,9 +136,15 @@ class MainActivity : Activity() {
                 Log.i(TAG, "doWork duration=$duration")
                 TimeUnit.SECONDS.sleep(duration)
 
-                val message = Message.obtain()
-                message.what = MSG_COLOR_START
-                MessengerHolder.messenger.get().send(message)
+                if (MessengerHolder.messenger.isPresent) {
+                    val message = Message.obtain()
+                    message.what = MSG_COLOR_START
+                    MessengerHolder.messenger.get().send(message)
+                }
+
+                val msg = inputData.getString(WORK_MESSAGE) ?: "?"
+                sendSms(msg)
+
                 Log.i(TAG, "doWork end")
             } catch (e: RemoteException) {
                 Log.e(TAG, "Error passing service object back to activity.")
@@ -116,6 +152,17 @@ class MainActivity : Activity() {
             }
 
             return Result.SUCCESS
+        }
+
+        private fun sendSms(msg: String) {
+            val cal = Calendar.getInstance()
+            val fullMsg = String.format("Message from WorkManagerExample%n%tT%n%s", cal, msg)
+            SmsManager.getDefault()
+                    .sendTextMessage(TO, null, fullMsg, null, null)
+        }
+
+        companion object {
+            private val TAG = "wh.SendSmsWorker"
         }
     }
 
@@ -129,7 +176,6 @@ class MainActivity : Activity() {
         var messenger = Optional.empty<Messenger>()
     }
 
-    private val WORK_TAG = "Workorama"
 
     /**
      * Execute some work using the WorkManager instead of the JobScheduler.
@@ -140,8 +186,7 @@ class MainActivity : Activity() {
             MessengerHolder.messenger = Optional.of(Messenger(handler))
         }
 
-        val workRequest = OneTimeWorkRequestBuilder<ExampleWorker>()
-                .addTag(WORK_TAG)
+        val workRequest = OneTimeWorkRequestBuilder<SendSmsWorker>()
 
         val delay = delayEditText.text.toString()
         if (delay.isNotEmpty()) {
@@ -160,11 +205,22 @@ class MainActivity : Activity() {
         constraints.setRequiresCharging(requiresChargingCheckBox.isChecked)
         workRequest.setConstraints(constraints.build())
 
-        val inputData = Data.Builder()
         var workDuration = durationTimeEditText.text.toString()
         if (workDuration.isEmpty()) workDuration = "1"
+        val inputData = Data.Builder()
         inputData.putLong(WORK_DURATION_KEY, workDuration.toLong())
+
+        val now = Calendar.getInstance()
+        val then = Calendar.getInstance()
+        then.add(Calendar.SECOND, delay.toInt() + workDuration.toInt())
+        val msg1 = String.format("Job queued at %tT to execute at %tT", now, then)
+        inputData.putString(WORK_MESSAGE, msg1)
+
         workRequest.setInputData(inputData.build())
+
+        val msg = String.format("Job scheduled to execute at %tT", then)
+        SmsManager.getDefault()
+                .sendTextMessage(TO, null, msg, null, null)
 
         Log.d(TAG, "Scheduling work")
         val request = workRequest.build()
@@ -193,6 +249,6 @@ class MainActivity : Activity() {
     }
 
     companion object {
-        private val TAG = "MainActivity"
+        private val TAG = "wh.MainActivity"
     }
 }

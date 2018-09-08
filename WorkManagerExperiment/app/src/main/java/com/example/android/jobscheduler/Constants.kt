@@ -26,3 +26,4 @@ package com.example.android.jobscheduler
 
 @JvmField val MESSENGER_INTENT_KEY = "${BuildConfig.APPLICATION_ID}.MESSENGER_INTENT_KEY"
 @JvmField val WORK_DURATION_KEY = "${BuildConfig.APPLICATION_ID}.WORK_DURATION_KEY"
+@JvmField val WORK_MESSAGE = "${BuildConfig.APPLICATION_ID}.WORK_MESSAGE"

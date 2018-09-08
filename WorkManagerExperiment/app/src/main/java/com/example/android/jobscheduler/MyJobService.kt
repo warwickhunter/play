@@ -90,6 +90,6 @@ class MyJobService : JobService() {
     }
 
     companion object {
-        private val TAG = "MyJobService"
+        private val TAG = "wh.MyJobService"
     }
 }
