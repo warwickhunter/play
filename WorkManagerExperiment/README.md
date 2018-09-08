@@ -1,8 +1,9 @@
 
-Android JobScheduler Sample (Kotlin)
+Android WorkManager Sample (Kotlin)
 ====================================
+This is a modified version of the JobScheduler example app. It has been modified by Warwick Hunter.
 
-Demonstration of the JobScheduler API, which provides an interface for scheduling
+Demonstration of the WorkManager API, which provides an interface for scheduling
 background tasks when certain tasks apply.
 
 To understand how this sample works, try these different scenarios:
@@ -34,7 +35,7 @@ Support
 - Stack Overflow: http://stackoverflow.com/questions/tagged/android
 
 If you've found an error in this sample, please file an issue:
-https://github.com/googlesamples/android-JobScheduler
+https://github.com/warwickhunter/play
 
 Patches are encouraged, and may be submitted by forking this project and
 submitting a pull request through GitHub. Please see CONTRIBUTING.md for more details.
