@@ -37,7 +37,7 @@ compileTestKotlin {
 
 jar {
     manifest {
-        attributes 'Main-Class':'coroutines.CoroutineExperimentKt',
+        attributes 'Main-Class':'CoroutinesKt',
                 'Implementation-Title': 'Coroutine Experiment',
                 'Implementation-Version': version
     }
