@@ -22,7 +22,6 @@ repositories {
 dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation "org.jetbrains.kotlin:kotlin-script-runtime:$kotlin_version"
 }
 
 compileKotlin {
@@ -48,7 +47,6 @@ jar {
     doFirst {
         from {
             configurations.runtimeClasspath.collect { file ->
-                println file
                 file.isDirectory() ? file : zipTree(file)
             }
         }
