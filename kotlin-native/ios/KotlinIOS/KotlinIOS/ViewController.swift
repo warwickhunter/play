@@ -18,6 +18,7 @@ class ViewController: UIViewController {
         label.center = CGPoint(x: 160, y: 285)
         label.textAlignment = .center
         label.font = label.font.withSize(25)
+        // This is actually calling Kotlin code defined in the SharedCode part of the Android project!
         label.text = CommonKt.createApplicationScreenMessage()
         view.addSubview(label)
     }
