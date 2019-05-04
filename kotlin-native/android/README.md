@@ -1,1 +1,1 @@
-Kotlin multiplatform experiment from: https://kotlinlang.org/docs/tutorials/native/mpp-ios-android.html
+Android and shared parts of a Kotlin multiplatform experiment from: https://kotlinlang.org/docs/tutorials/native/mpp-ios-android.html
