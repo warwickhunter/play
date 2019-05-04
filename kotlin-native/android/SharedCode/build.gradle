@@ -1,0 +1,31 @@
+apply plugin: 'kotlin-multiplatform'
+
+kotlin {
+    targets {
+        final def iOSTarget = System.getenv('SDK_NAME')?.startsWith("iphoneos") \
+                              ? presets.iosArm64 : presets.iosX64
+
+        fromPreset(iOSTarget, 'ios') {
+            binaries {
+                framework('SharedCode')
+            }
+        }
+
+        fromPreset(presets.jvm, 'android')
+    }
+
+    sourceSets {
+        commonMain.dependencies {
+            api 'org.jetbrains.kotlin:kotlin-stdlib-common'
+        }
+
+        androidMain.dependencies {
+            api 'org.jetbrains.kotlin:kotlin-stdlib'
+        }
+    }
+}
+
+// workaround for https://youtrack.jetbrains.com/issue/KT-27170
+configurations {
+    compileClasspath
+}
