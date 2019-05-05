@@ -1,1 +1,2 @@
 Android and shared parts of a Kotlin multiplatform experiment from: https://kotlinlang.org/docs/tutorials/native/mpp-ios-android.html
+and parts from here https://ktor.io/clients/http-client/multiplatform.html
