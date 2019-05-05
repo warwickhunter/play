@@ -1,13 +1,13 @@
 package org.computer.whunter.kotlinnativeexperiment
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.TextView
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
+import org.kotlin.mpp.mobile.ApplicationApi
 import org.kotlin.mpp.mobile.createApplicationScreenMessage
 
 class MainActivity : AppCompatActivity() {
@@ -18,11 +18,14 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            ApplicationApi().fetch(::resultsFromFetch)
         }
 
-        findViewById<TextView>(R.id.main_text).text = createApplicationScreenMessage()
+        main_text.text = createApplicationScreenMessage()
+    }
+
+    private fun resultsFromFetch(results : String) {
+        main_text.text = results
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
