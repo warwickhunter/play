@@ -67,8 +67,8 @@ int main(int argc, char** argv) {
 
     Screen screen;
 
-    for (auto &x : shapes) {
-        x->draw(screen);
+    for (auto &shape : shapes) {
+        shape->draw(screen);
     }
 
     return 0;
