@@ -11,26 +11,26 @@
 
 using namespace std;
 
-class screen {
+class Screen {
 public:
-    explicit screen() {}
-    virtual ~screen() {}
+    explicit Screen() {}
+    virtual ~Screen() {}
 };
 
-class shape {
+class Shape {
 public:
-    explicit shape() {}
-    virtual ~shape() {}
-    virtual void draw(screen& theScreen) const = 0;
+    explicit Shape() {}
+    virtual ~Shape() {}
+    virtual void draw(Screen& theScreen) const = 0;
 };
 
-class point : public shape {
+class Point : public Shape {
 public:
-    explicit point(int x, int y) : shape(), x(x), y(y) {}
-    virtual ~point() {}
+    explicit Point(int x, int y) : Shape(), x(x), y(y) {}
+    virtual ~Point() {}
 
-    virtual void draw(screen& theScreen) const {
-        cout << "point::draw(x=" << x << ",y=" << y << ")" << endl;
+    virtual void draw(Screen& theScreen) const {
+        cout << "Point::draw(x=" << x << ",y=" << y << ")" << endl;
     }
 
 private:
@@ -38,13 +38,13 @@ private:
     int y;
 };
 
-class line : public shape {
+class Line : public Shape {
 public:
-    explicit line(int x1, int y1, int x2, int y2) : shape(), x1(x1), y1(y1), x2(x2), y2(y2) {}
-    virtual ~line() {}
+    explicit Line(int x1, int y1, int x2, int y2) : Shape(), x1(x1), y1(y1), x2(x2), y2(y2) {}
+    virtual ~Line() {}
 
-    virtual void draw(screen& theScreen) const {
-        cout << "line::draw(x1=" << x1 << ",y1=" << y1 << ",x2=" << x2 << ",y2=" << y2 << ")" << endl;
+    virtual void draw(Screen& theScreen) const {
+        cout << "Line::draw(x1=" << x1 << ",y1=" << y1 << ",x2=" << x2 << ",y2=" << y2 << ")" << endl;
     }
 
 private:
@@ -56,12 +56,12 @@ private:
 
 int main(int argc, char** argv) {
 
-    list<unique_ptr<shape>> shapes;
-    shapes.push_back(unique_ptr<shape>(new point(0,0)));
-    shapes.push_back(unique_ptr<shape>(new point(10, 10)));
-    shapes.push_back(unique_ptr<shape>(new line(0,0,10,10)));
+    list<unique_ptr<Shape>> shapes;
+    shapes.push_back(unique_ptr<Shape>(new Point(0,0)));
+    shapes.push_back(unique_ptr<Shape>(new Point(10, 10)));
+    shapes.push_back(unique_ptr<Shape>(new Line(0,0,10,10)));
 
-    screen theScreen;
+    Screen theScreen;
 
     for (auto &x : shapes) {
         x->draw(theScreen);
