@@ -111,44 +111,44 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named CxxTemplatePlay
+# Target rules for targets named CalsAssignment
 
 # Build rule for target.
-CxxTemplatePlay: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 CxxTemplatePlay
-.PHONY : CxxTemplatePlay
+CalsAssignment: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 CalsAssignment
+.PHONY : CalsAssignment
 
 # fast build rule for target.
-CxxTemplatePlay/fast:
-	$(MAKE) -f CMakeFiles/CxxTemplatePlay.dir/build.make CMakeFiles/CxxTemplatePlay.dir/build
-.PHONY : CxxTemplatePlay/fast
+CalsAssignment/fast:
+	$(MAKE) -f CMakeFiles/CalsAssignment.dir/build.make CMakeFiles/CalsAssignment.dir/build
+.PHONY : CalsAssignment/fast
 
-CxxTemplatePlay.o: CxxTemplatePlay.cpp.o
+CalsAssignment.o: CalsAssignment.cpp.o
 
-.PHONY : CxxTemplatePlay.o
+.PHONY : CalsAssignment.o
 
 # target to build an object file
-CxxTemplatePlay.cpp.o:
-	$(MAKE) -f CMakeFiles/CxxTemplatePlay.dir/build.make CMakeFiles/CxxTemplatePlay.dir/CxxTemplatePlay.cpp.o
-.PHONY : CxxTemplatePlay.cpp.o
+CalsAssignment.cpp.o:
+	$(MAKE) -f CMakeFiles/CalsAssignment.dir/build.make CMakeFiles/CalsAssignment.dir/CalsAssignment.cpp.o
+.PHONY : CalsAssignment.cpp.o
 
-CxxTemplatePlay.i: CxxTemplatePlay.cpp.i
+CalsAssignment.i: CalsAssignment.cpp.i
 
-.PHONY : CxxTemplatePlay.i
+.PHONY : CalsAssignment.i
 
 # target to preprocess a source file
-CxxTemplatePlay.cpp.i:
-	$(MAKE) -f CMakeFiles/CxxTemplatePlay.dir/build.make CMakeFiles/CxxTemplatePlay.dir/CxxTemplatePlay.cpp.i
-.PHONY : CxxTemplatePlay.cpp.i
+CalsAssignment.cpp.i:
+	$(MAKE) -f CMakeFiles/CalsAssignment.dir/build.make CMakeFiles/CalsAssignment.dir/CalsAssignment.cpp.i
+.PHONY : CalsAssignment.cpp.i
 
-CxxTemplatePlay.s: CxxTemplatePlay.cpp.s
+CalsAssignment.s: CalsAssignment.cpp.s
 
-.PHONY : CxxTemplatePlay.s
+.PHONY : CalsAssignment.s
 
 # target to generate assembly for a file
-CxxTemplatePlay.cpp.s:
-	$(MAKE) -f CMakeFiles/CxxTemplatePlay.dir/build.make CMakeFiles/CxxTemplatePlay.dir/CxxTemplatePlay.cpp.s
-.PHONY : CxxTemplatePlay.cpp.s
+CalsAssignment.cpp.s:
+	$(MAKE) -f CMakeFiles/CalsAssignment.dir/build.make CMakeFiles/CalsAssignment.dir/CalsAssignment.cpp.s
+.PHONY : CalsAssignment.cpp.s
 
 # Help Target
 help:
@@ -157,11 +157,11 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... CxxTemplatePlay"
+	@echo "... CalsAssignment"
 	@echo "... edit_cache"
-	@echo "... CxxTemplatePlay.o"
-	@echo "... CxxTemplatePlay.i"
-	@echo "... CxxTemplatePlay.s"
+	@echo "... CalsAssignment.o"
+	@echo "... CalsAssignment.i"
+	@echo "... CalsAssignment.s"
 .PHONY : help
 
 

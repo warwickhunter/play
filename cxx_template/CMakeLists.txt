@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 2.6)
 
-project (CxxTemplatePlay)
+project (CalsAssignment)
 
-add_executable(CxxTemplatePlay CxxTemplatePlay.cpp)
+add_executable(CalsAssignment CalsAssignment.cpp)
