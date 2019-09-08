@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 2.6)
 
-project (CalsAssignment)
+project (PolymorphicShapes)
 
-add_executable(CalsAssignment CalsAssignment.cpp)
+add_executable(PolymorphicShapes PolymorphicShapes.cpp)

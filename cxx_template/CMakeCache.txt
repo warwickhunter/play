@@ -139,7 +139,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=CalsAssignment
+CMAKE_PROJECT_NAME:STATIC=PolymorphicShapes
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -211,6 +211,12 @@ CxxTemplatePlay_BINARY_DIR:STATIC=/home/whunter/dev/play/cxx_template
 
 //Value Computed by CMake
 CxxTemplatePlay_SOURCE_DIR:STATIC=/home/whunter/dev/play/cxx_template
+
+//Value Computed by CMake
+PolymorphicShapes_BINARY_DIR:STATIC=/home/whunter/dev/play/cxx_template
+
+//Value Computed by CMake
+PolymorphicShapes_SOURCE_DIR:STATIC=/home/whunter/dev/play/cxx_template
 
 
 ########################
