@@ -60,7 +60,7 @@ private:
 
 int main(int argc, char** argv) {
 
-    list<unique_ptr<Shape>> shapes;
+    list< unique_ptr<Shape> > shapes;
     shapes.push_back(unique_ptr<Shape>(new Point(0,0)));
     shapes.push_back(unique_ptr<Shape>(new Point(10, 10)));
     shapes.push_back(unique_ptr<Shape>(new Line(0,0,10,10)));
