@@ -27,3 +27,8 @@ javafx/IssueTrackingLite/nbproject/private/
 classes
 .gradle
 .settings
+*.map
+node_modules
+/typescript/.yarnrc.yml
+.yarn
+.vscode
