@@ -35,6 +35,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.computer.whunter.composetutorial.ui.theme.ComposeTutorialTheme
 
+
+/**
+ * Jetpack Compose tutorial: https://developer.android.com/jetpack/compose/tutorial
+ *
+ * @since 2021-11-14
+ */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
