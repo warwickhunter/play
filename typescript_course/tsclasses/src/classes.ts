@@ -50,8 +50,8 @@ console.log(jen.fullName);
 
 // setters
 class User6 {
-    private _firstName: string = '';
-    private _lastName: string = '';
+    protected _firstName: string = '';
+    protected _lastName: string = '';
 
     get fullName() {
         return this._firstName + ' ' + this._lastName
@@ -82,3 +82,26 @@ jon.firstName = 'Jon';
 jon.lastName = 'Jones';
 console.log(jon, User6.eid);
 User6.greet();
+
+class Employee extends User6 { // inheritance
+    constructor(public jobTitle: string) {
+        super();
+    }
+}
+let bob = new Employee("Software Engineer");
+console.log(bob);
+
+abstract class UIElement { // abstract class
+    constructor(public identifier: string) {}
+
+    clone(targetLocation: string) {
+        // …
+    }
+}
+class SideDrawerElement extends UIElement {
+    constructor(public identifier: string, public position: 'left' | 'right') {
+        super(identifier)
+    }
+}
+
+
