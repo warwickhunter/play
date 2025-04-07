@@ -25,3 +25,25 @@ user = {
 interface Authenticatable {
     role: string;
 }
+
+// implements interface
+class AuthenticableUser implements Authenticatable {
+    constructor(public email: string, public password: string, public role: string) {
+    }
+
+    login() {
+        // …
+    }
+
+    logout() {
+        // …
+    }
+}
+function authenticate(user: Authenticatable) {
+    user.login()
+}
+
+// extend interface
+interface AuthenticatableAdmin extends Authenticatable {
+    role: 'admin' | 'superadmin';
+}
