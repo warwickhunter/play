@@ -9,7 +9,7 @@ type Operations = {
 // }
 
 type Results<T> = {
-    [Key in keyof T] : number; // mapped type
+    [Key in keyof T]? : number; // mapped type making optional
 }
 
 let mathsOperations: Operations = {
@@ -28,7 +28,7 @@ type Results2<T> = {
     [Key in keyof T]?: number;
 }
 
-// not optional mapping types
+// removing optional when mapping types
 type Results3<T> = {
     [Key in keyof T]-?: number;
 }
@@ -39,7 +39,7 @@ type Operations2 = {
     readonly subtract: (a: number, b: number) => number;
 }
 
-// removing readonly from mapped properties
+// removing readonly when mapping properties
 type Results4<T> = {
     -readonly [Key in keyof T]?: number;
 }
